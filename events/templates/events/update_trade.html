@@ -1,0 +1,14 @@
+{%extends 'events/base.html'%}
+{%block content%}
+{%if submitted%}
+The Venue was submitted Succesfully
+{%else%}
+<h1>Update Trade</h1>
+<form action = "" method =POST>
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type ="submit" value = "Submit" class="btn btn-success"></input>
+</form>
+{%endif%}
+
+{%endblock%}
