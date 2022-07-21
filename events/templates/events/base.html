@@ -14,9 +14,13 @@
 
   	{% include 'events/navbar.html' %}
   	<br/>
+    <div class="container-sm">
+      {% block content %}
+    
+      {%endblock %}
+      <br/>
+    </div>
 
-    {% block content %}
-	 {%endblock %}
 
 
     <!-- Optional JavaScript; choose one of the two! -->

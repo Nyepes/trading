@@ -3,14 +3,12 @@
 {%if submitted%}
 The Venue was submitted Succesfully
 {%else%}
-<center>
-    <h1>Add Trade</h1>
-    <form action = "" method =POST>
-        {%csrf_token%}
-        {{form.as_p}}
-        <input type ="submit" value = "Submit" class="btn btn-success"></input>
-    </form>
-</center>
+<h1>Add Trade</h1>
+<form action = "" method =POST>
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type ="submit" value = "Submit" class="btn btn-success"></input>
+</form>
 {%endif%}
 
 {%endblock%}

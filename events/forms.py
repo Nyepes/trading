@@ -41,7 +41,7 @@ class TradeForm(ModelForm):
             "locate_fees": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Locate Fees'}),
             "exit_price": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Exit Price'}),
             "commission": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Commission'}),
-            "wl": forms.TextInput(attrs={'class':'form-control','required': 'True', 'placeholder':'W/L'}),
+            "wl": forms.Select(attrs={'class':'form-control','required': 'True', 'placeholder':'W/L'}, choices=[("1","Win"),("2","Loss")]),
             "profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Profit'}),
             "screenshot": forms.FileInput(attrs={'class':'form-control'}),
             "comments": forms.Textarea(attrs={'class':'form-control','required': 'True', 'placeholder':'Comments'})

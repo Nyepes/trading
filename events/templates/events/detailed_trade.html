@@ -1,0 +1,30 @@
+{% extends 'events/base.html'%}
+{%block content%}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{trade.ticker}}</h5>
+      <ul>
+        <li>{{trade.date}}</li>
+        <li>{{trade.time}}</li>
+        <li>Price: {{trade.entry_price}}</li>
+        <li>Stop Loss: {{trade.stop_loss}}</li>
+        <li>Take Profit: {{trade.take_profit}}</li>
+        <li>Shares: {{trade.shares}}</li>
+        <li>Locate Fees: {{trade.locate_fees}}</li>
+        <li>Exit Price: {{trade.exit_price}}</li>
+        <li>Commission: {{trade.commission}}</li>
+        <li>W/L: {{trade.wl}}</li>
+        <li>Profit: {{trade.profit}}</li>
+        {%if trade.screenshot != null%}
+        <li>Screenshot: {{trade.screenshot}}</li>
+        {%endif%}
+        <li>Comments: {{trade.comments}}</li>
+      </ul>
+      <br/>
+      <button type="button" class="btn btn-primary" style="width: 8rem;">Edit</button>
+      <button type="button" class="btn btn-danger" style="width: 8rem;">Delete</button>
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+  </div>
+{%endblock%}
