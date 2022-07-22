@@ -2,17 +2,16 @@
 {% block content %}
 <h1>Trades</h1>
 <br/>
-
 {% for trade in all_trades%}
 <div class="card">
     <div class="card-body">
       <h5 class="card-title">
-        <a href="{% url 'trade' trade.id %}">{{trade.ticker}}</a>
+        <a href="{% url 'trade' trade.id %}">{{trade.ticker.upper}}</a>
       </h5>
-      <p class="card-text">Profit: {{trade.profit}}</p>
       <p class="card-text">{{trade.date}}</p>
+      <p class="card-text">Profit: {{trade.profit}}</p>
       <p class="card-text">Entry Price: {{trade.entry_price}}</p>
-      <p class="card-text">Number of Shares: {{trade.shares}}</p>
+      <p class="card-text">Number of Shares: {{trade.num_shares}}</p>
       <a href="{% url 'trade' trade.id %}" class="btn btn-primary">Info</a>
     </div>
 </div>

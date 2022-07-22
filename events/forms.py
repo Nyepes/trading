@@ -9,10 +9,14 @@ class TradeForm(ModelForm):
         # now = datetime.now().
         # today.date().
         model = Trade
+        # fields = (
+        #     "date","time","ticker","entry_price","stop_loss",
+        #     "take_profit","shares","locate_fees","exit_price",
+        #     "commission","wl","profit","screenshot","comments")
         fields = (
             "date","time","ticker","entry_price","stop_loss",
-            "take_profit","shares","locate_fees","exit_price",
-            "commission","wl","profit","screenshot","comments")
+            "locate_fees","exit_price","commission","trade_type",
+            "screenshot","comments")
 
         labels = {
             "date": 'Date',
@@ -20,13 +24,13 @@ class TradeForm(ModelForm):
             "ticker": '',
             "entry_price": '',
             "stop_loss": '',
-            "take_profit": '',
-            "shares": '',
+            # "take_profit": '',
+            # "shares": '',
             "locate_fees": '',
             "exit_price": '',
             "commission": '',
-            "wl": '',
-            "profit": '',
+            "trade_types": '',
+            #"profit": '',
             "screenshot": 'Screenshot',
             "comments": ''
         }
@@ -36,13 +40,13 @@ class TradeForm(ModelForm):
             "ticker": forms.TextInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Ticker'}),
             "entry_price": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Entry Price'}),
             "stop_loss": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Stop Loss'}),
-            "take_profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Take Profit'}),
-            "shares": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Number of Shares'}),
+            # "take_profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Take Profit'}),
+            # "shares": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Number of Shares'}),
             "locate_fees": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Locate Fees'}),
             "exit_price": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Exit Price'}),
             "commission": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Commission'}),
-            "wl": forms.Select(attrs={'class':'form-control','required': 'True', 'placeholder':'W/L'}, choices=[("1","Win"),("2","Loss")]),
-            "profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Profit'}),
+            "trade_type": forms.Select(attrs={'class':'form-control','required': 'True', 'placeholder':'Type of Trade'}, choices=[("1","Short"),("2","Long")]),
+            #"profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Profit'}),
             "screenshot": forms.FileInput(attrs={'class':'form-control'}),
             "comments": forms.Textarea(attrs={'class':'form-control','required': 'True', 'placeholder':'Comments'})
         }

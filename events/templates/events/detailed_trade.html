@@ -2,18 +2,19 @@
 {%block content%}
 <div class="card">
     <div class="card-body">
-      <h5 class="card-title">{{trade.ticker}}</h5>
+      <h5 class="card-title">{{trade.ticker.upper}}</h5>
       <ul>
         <li>{{trade.date}}</li>
         <li>{{trade.time}}</li>
+        <li>Price: {{trade.wl}}</li>
         <li>Price: {{trade.entry_price}}</li>
         <li>Stop Loss: {{trade.stop_loss}}</li>
         <li>Take Profit: {{trade.take_profit}}</li>
-        <li>Shares: {{trade.shares}}</li>
+        <li>Shares: {{trade.num_shares}}</li>
         <li>Locate Fees: {{trade.locate_fees}}</li>
         <li>Exit Price: {{trade.exit_price}}</li>
         <li>Commission: {{trade.commission}}</li>
-        <li>W/L: {{trade.wl}}</li>
+        <li>Trade Type: {{trade.trade_type}}</li>
         <li>Profit: {{trade.profit}}</li>
         {%if trade.screenshot != null%}
         <li>Screenshot: {{trade.screenshot}}</li>

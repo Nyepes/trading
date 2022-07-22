@@ -27,7 +27,7 @@ def edit_trade(request, trade_id):
     return render(request, 'events/update_trade.html', {'form':form,'trade':trade})
 def trade_log(request):
     trades = Trade.objects.all().order_by('-date')
-    return render(request, 'events/trade_log.html', {'all_trades':trades})
+    return render(request, 'events/trade_log.html', {'all_trades':trades, 'index':range(0,len(trades))})
 
 def trade(request,trade_id):
     trade = Trade.objects.get(pk=trade_id)
@@ -36,5 +36,4 @@ def trade(request,trade_id):
 def delete_trade(request, trade_id):
     trade = Trade.objects.get(pk=trade_id)
     trade.delete()
-    trades = Trade.objects.all().order_by('-date')
-    return render(request, 'events/trade_log.html', {'all_trades':trades})
+    return redirect('trade_log')
