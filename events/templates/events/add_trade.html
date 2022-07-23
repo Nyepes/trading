@@ -1,14 +1,18 @@
 {%extends 'events/base.html'%}
+
 {%block content%}
-{%if submitted%}
-The Venue was submitted Succesfully
-{%else%}
+
+{%if user.is_authenticated%}
 <h1>Add Trade</h1>
 <form action = "" method =POST>
     {%csrf_token%}
     {{form.as_p}}
     <input type ="submit" value = "Submit" class="btn btn-success"></input>
 </form>
+
+{%else%}
+
+Please Log In
 {%endif%}
 
 {%endblock%}

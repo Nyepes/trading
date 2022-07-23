@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from events.models import Trade
 from .forms import TradeForm
 def home(request):
-    return render(request, 'events/home.html', {})
+    return redirect('trade_log')
 
 def add_trade(request):
     submitted = False
@@ -37,3 +37,4 @@ def delete_trade(request, trade_id):
     trade = Trade.objects.get(pk=trade_id)
     trade.delete()
     return redirect('trade_log')
+

@@ -1,5 +1,7 @@
 {% extends 'events/base.html' %}
 {% block content %}
+
+{%if user.is_authenticated%}
 <h1>Trades</h1>
 <br/>
 {% for trade in all_trades%}
@@ -17,4 +19,7 @@
 </div>
 <br/>
 {%endfor%}
+{%else%}
+Please Log in
+{%endif%}
 {% endblock %}
