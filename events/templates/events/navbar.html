@@ -12,23 +12,38 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'add_trade' %}">Add Trade</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Break Resistance</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Strategy
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Channel Trading</a></li>
+              <li><a class="dropdown-item" href="#">Short into Resistance</a></li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">QRTY</a>
           </li>
+
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
           {%if user.is_authenticated%}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
-          {%else%}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-          {%endif%}
 
-        </ul>
+
+          {%else%}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+            </li>
+          
+          {%endif%}
+          </ul>
       </div>
     </div>
   </nav>

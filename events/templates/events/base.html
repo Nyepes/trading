@@ -17,9 +17,15 @@
     <div class="container-sm">
       {% if messages %}
         {%for message in messages%}
-        <div class="alert alert-danger" role="alert">
-          {{message}}
-        </div>
+          {%if message.message == "Registration Succesful"%}
+            <div class="alert alert-success" role="alert">
+              {{message}}
+            </div>
+          {%else%}
+          <div class="alert alert-danger" role="alert">
+            {{message}}
+          </div>
+          {%endif%}
         {%endfor%}
       {%endif%}
 

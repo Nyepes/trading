@@ -1,0 +1,25 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+{%for key,value in errors %}
+<div class="alert alert-danger" role="alert">
+    Error: {{value}}
+</div>
+
+{%endfor%}
+	<h1>Register</h1>
+<br/>
+
+
+		<form action=" {% url 'register_user' %} " method=POST>
+			{% csrf_token %}
+            {{form.as_p}}
+
+			<input type="submit" value="Submit" class="btn btn-primary">
+
+		</form>
+		
+
+<br/><br/>	
+{% endblock %}

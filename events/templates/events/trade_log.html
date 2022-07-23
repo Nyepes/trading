@@ -4,21 +4,27 @@
 {%if user.is_authenticated%}
 <h1>Trades</h1>
 <br/>
-{% for trade in all_trades%}
-<div class="card">
-    <div class="card-body">
-      <h5 class="card-title">
-        <a href="{% url 'trade' trade.id %}">{{trade.ticker.upper}}</a>
-      </h5>
-      <p class="card-text">{{trade.date}}</p>
-      <p class="card-text">Profit: {{trade.profit}}</p>
-      <p class="card-text">Entry Price: {{trade.entry_price}}</p>
-      <p class="card-text">Number of Shares: {{trade.num_shares}}</p>
-      <a href="{% url 'trade' trade.id %}" class="btn btn-primary">Info</a>
-    </div>
-</div>
-<br/>
-{%endfor%}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Ticker</th>
+      <th scope="col">Profit</th>
+      <th scope="col">Date</th>
+      <th scope="col">Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for trade in all_trades%}
+    <tr>
+      <th scope="row">{{trade.ticker.upper}}</th>
+      <td>{{trade.profit}}</td>
+      <td>{{trade.date}}</td>
+      <td>{{trade.trade_type}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
 {%else%}
 Please Log in
 {%endif%}
