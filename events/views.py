@@ -7,17 +7,14 @@ from django.core.paginator import Paginator
 
 
 def home(request):
-    return render(request,'events/home.html',{'user':request.user})
+    return render(request,'events/home.html',{})
 
 def add_trade(request):
     submitted = False
     if request.method == 'POST':
         form = TradeForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.refresh_from_db()
-            user.profile.initial_equity = decimal.Decimal(2000)
-            user.save()
+            form.save()
             return redirect ('trade_log')
     else:
         form = TradeForm(request.POST)

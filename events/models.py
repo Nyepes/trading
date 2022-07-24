@@ -5,19 +5,19 @@ from django.dispatch import receiver
 from django.db import models
 from django.contrib.auth.models import User
 
-
-
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    initial_equity = models.DecimalField("Initial Equity",decimal_places=2, max_digits=10, blank=True, null=True,default=decimal.Decimal(0.0))
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
+    initial_equity = models.DecimalField("Initial Equity", blank=True,null=True,max_digits=10,decimal_places=2,default=decimal.Decimal(0.00))
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 
 class Trade(models.Model):
     page_user=models.OneToOneField(Profile, on_delete=models.CASCADE, null=True)

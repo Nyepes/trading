@@ -1,9 +1,12 @@
+import re
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+import decimal
+from members.forms import ProfileForm
+from django.contrib.auth.models import User
 
-from members.forms import RegisterUserForm
+from members.forms import RegisterUserForm,ProfileForm
 
 def login_user(request):
 
@@ -29,12 +32,19 @@ def logout_user(request):
 def register_user(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
+        #pro = ProfileForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            #profile = pro.save(commit=False)
+            print(type(user))
             username = form.cleaned_data['username']
+            #profile.user = User.objects.get(username=username)
+            
             password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request,user)
+            usera = authenticate(username=username, password=password)
+            login(request,usera)
+            user.profile.initial_equity=20000
+            user.save()
             messages.success(request, ('Registration Succesful'))
             return redirect('home')
         else:

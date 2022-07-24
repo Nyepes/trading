@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Trade
+from .models import Trade, Profile
 from datetime import date, datetime,timezone
 
 class TradeForm(ModelForm):
