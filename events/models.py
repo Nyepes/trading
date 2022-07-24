@@ -30,7 +30,10 @@ class Trade(models.Model):
         return round((abs((float(self.entry_price)-float(self.stop_loss))*2+float(self.entry_price))),2)
     @property
     def profit(self):
-        return 10 #TODO
+        if self.trade_type == 'Channel Trading':
+            return (self.exit_price-self.entry_price)*self.num_shares - self.locate_fees - self.commission
+        elif self.trade_type == 'Short Into Resistance':
+            return -1*(self.exit_price-self.entry_price)*self.num_shares - self.locate_fees - self.commission
     @property
     def wl(self):
         if self.trade_type == "Short":
