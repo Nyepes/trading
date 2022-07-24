@@ -45,7 +45,7 @@ class TradeForm(ModelForm):
             "locate_fees": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Locate Fees'}),
             "exit_price": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Exit Price'}),
             "commission": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Commission'}),
-            "trade_type": forms.Select(attrs={'class':'form-control','required': 'True', 'placeholder':'Type of Trade'}, choices=[("1","Short"),("2","Long")]),
+            "trade_type": forms.Select(attrs={'class':'form-control','required': 'True', 'placeholder':'Type of Trade'}, choices=[("Channel Trading","Channel Trading"),("Short Into Resistance","Short Into Resistance")]),
             #"profit": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Profit'}),
             "screenshot": forms.FileInput(attrs={'class':'form-control'}),
             "comments": forms.Textarea(attrs={'class':'form-control','required': 'True', 'placeholder':'Comments'})

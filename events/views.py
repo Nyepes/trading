@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from events.models import Trade
 from .forms import TradeForm
+from django.contrib import messages
+from django.core.paginator import Paginator
+
+
 def home(request):
     return redirect('trade_log')
 
@@ -27,7 +31,11 @@ def edit_trade(request, trade_id):
     return render(request, 'events/update_trade.html', {'form':form,'trade':trade})
 def trade_log(request):
     trades = Trade.objects.all().order_by('-date')
-    return render(request, 'events/trade_log.html', {'all_trades':trades, 'index':range(0,len(trades))})
+    p = Paginator(Trade.objects.all().order_by('-date'), 25)
+    page = request.GET.get('page')
+    trades_p = p.get_page(page)
+
+    return render(request, 'events/trade_log.html', {'all_trades':trades, 'pagin':trades_p})
 
 def trade(request,trade_id):
     trade = Trade.objects.get(pk=trade_id)
@@ -36,5 +44,19 @@ def trade(request,trade_id):
 def delete_trade(request, trade_id):
     trade = Trade.objects.get(pk=trade_id)
     trade.delete()
+    messages.success(request,('Trade Deleted'))
     return redirect('trade_log')
 
+def search_trade(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        strat = request.POST['strategy']
+        if strat != 'Strategy':
+            print(strat)
+            trades = Trade.objects.filter(ticker__contains=searched).filter(trade_type__contains=strat)
+        else:
+            trades = Trade.objects.filter(ticker__contains=searched)
+        pagin = Paginator(trades, 25)
+        page = request.GET.get('page')
+        trades_p = pagin.get_page(page)
+        return render(request,'events/searched_trades.html',{'pagin': trades_p})

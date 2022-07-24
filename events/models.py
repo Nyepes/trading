@@ -14,7 +14,7 @@ class Trade(models.Model):
     locate_fees=models.DecimalField("Locate Fees",decimal_places=2, max_digits=10, null=True,blank=True)
     exit_price=models.DecimalField("Exit Price",decimal_places=2, max_digits=10, null = True, blank=True)
     commission = models.DecimalField("Commission", decimal_places=2, max_digits=10, null = True, blank=True)
-    trade_type = models.CharField("Trade Type",max_length=2, null = True, blank=True)
+    trade_type = models.CharField("Trade Type",max_length=30, null = True, blank=True)
     #profit = models.DecimalField("Profit", decimal_places=2, max_digits=10, null = True, blank=True)
     screenshot = models.ImageField("Screenshot", null=True,blank=True)
     comments=models.TextField("Comments", blank=True, null = True)
@@ -47,4 +47,3 @@ class Trade(models.Model):
                 return "Neutral"
             else:
                 return "Win"
-

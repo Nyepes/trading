@@ -5,15 +5,15 @@
 <h1>Trades</h1>
 <br/>
 <form class="d-flex" action = "{% url 'search_trades' %}" method="POST">
-  {% csrf_token %}
-  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
-  <select class="form-select me-2" aria-label="Default select example" style="width:auto;" name="strategy">
-    <option selected>Strategy</option>
-    <option value="Channel Trading">Channel Trading</option>
-    <option value="Short Into Resistance">Short Into Resisitance</option>
-</select>
-  <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+    <select class="form-select me-2" aria-label="Default select example" style="width:auto;" name="strategy">
+        <option selected>Strategy</option>
+        <option value="Channel Trading">Channel Trading</option>
+        <option value="Short Into Resistance">Short Into Resisitance</option>
+    </select>
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
 <br/>
 <table class="table table-striped">
   <thead>
@@ -22,7 +22,7 @@
       <th scope="col">Profit</th>
       <th scope="col">Date</th>
       <th scope="col">Strategy</th>
-      <th scope="col" class="text-end me-2">Actions</th>
+      <th scope="col" class="text-end">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -44,17 +44,13 @@
     {%endfor%}
   </tbody>
 </table>
-<br/>
-
-  <nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example">
     <ul class="pagination">
       {%if pagin.has_previous %}
       <li class="page-item"><a class="page-link" href="?page=1">&laquo</a></li>
       <li class="page-item"><a class="page-link" href="?page={{pagin.previous_page_number}}">Previous</a></li>
       {%endif%}
-      {%if pagin.has_next and pagin.has_previous  %}
-      <li class="page-item"><a class="page-link" href="#">{{pagin.number}}</a></li>
-      {%endif%}
+      <li class="page-item active"><a class="page-link" href="#">{{pagin.number}}</a></li>
       {%if pagin.has_next %}
       <li class="page-item"><a class="page-link" href="?page={{pagin.next_page_number}}">Next</a></li>
       <li class="page-item"><a class="page-link" href="?page={{pagin.num_pages}}">&raquo</a></li>
@@ -62,10 +58,6 @@
   
     </ul>
   </nav>
-
-
-
-
 {%else%}
 Please Log in
 {%endif%}

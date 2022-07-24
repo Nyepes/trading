@@ -7,4 +7,5 @@ urlpatterns = [
     path('trade<trade_id>',views.trade, name='trade'),
     path('update_trade<trade_id>', views.edit_trade, name='update_trade'),
     path('delete_trade<trade_id>', views.delete_trade, name='delete_trade'),
+    path('search_trades', views.search_trade, name='search_trades'),
 ]
