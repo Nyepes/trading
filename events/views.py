@@ -1,19 +1,23 @@
 from django.shortcuts import render, redirect
 from events.models import Trade
 from .forms import TradeForm
+import decimal
 from django.contrib import messages
 from django.core.paginator import Paginator
 
 
 def home(request):
-    return redirect('trade_log')
+    return render(request,'events/home.html',{'user':request.user})
 
 def add_trade(request):
     submitted = False
     if request.method == 'POST':
         form = TradeForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.refresh_from_db()
+            user.profile.initial_equity = decimal.Decimal(2000)
+            user.save()
             return redirect ('trade_log')
     else:
         form = TradeForm(request.POST)
