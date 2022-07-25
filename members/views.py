@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -32,25 +31,25 @@ def logout_user(request):
 def register_user(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
-        #pro = ProfileForm(request.POST)
+        pro = ProfileForm(request.POST)
         if form.is_valid():
             user = form.save()
-            #profile = pro.save(commit=False)
+            profile = pro.save(commit=False)
             print(type(user))
             username = form.cleaned_data['username']
-            #profile.user = User.objects.get(username=username)
             
             password = form.cleaned_data['password1']
             usera = authenticate(username=username, password=password)
             login(request,usera)
-            user.profile.initial_equity=20000
+            user.profile.initial_equity=pro.cleaned_data.get('initial_equity')
             user.save()
             messages.success(request, ('Registration Succesful'))
             return redirect('home')
         else:
             for error in form.errors.items():
                 print(error[1][0])
-            return render(request, 'authenticate/register_user.html',{'form':form,'errors':form.errors.items()})
+            return render(request, 'authenticate/register_user.html',{'form':form,'profile_form':pro, 'errors':form.errors.items()})
     else:
         form = RegisterUserForm()
-    return render(request, 'authenticate/register_user.html',{'form':form})
+        pro = ProfileForm()
+    return render(request, 'authenticate/register_user.html',{'form':form,'profile_form':pro,})

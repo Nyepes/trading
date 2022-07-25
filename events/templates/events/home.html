@@ -1,9 +1,33 @@
 {% extends 'events/base.html' %}
 {% block content %}
-<h1>Hello World</h1>
-1
 {% if user.is_authenticated%}
-{{user.profile.initial_equity}}
-{{user.initial_equity}}
+<h1>Hello {{user.first_name}}</h1>
+<br/><br/>
+<div class="alert alert-primary" role="alert">
+    <center>
+        <h5>Current Equity</h5>
+        <br/>
+        <h2> ${{user.profile.total_equity}}</h2>
+        <br/>
+        <h5> Risk Reward: {{user.profile.risk_reward_ratio}}</h5>
+        <br/>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                <th scope="col" class="text-center">Win Percent</th>
+                <th scope="col" class="text-center">Neutral Percent</th>
+                <th scope="col" class="text-center">Loss Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td class="text-center">{{user.profile.win_p.0}}%</td>
+                <td class="text-center">{{user.profile.win_p.1}}%</td>
+                <td class="text-center">{{user.profile.win_p.2}}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+  </div>
 {%endif%}
 {% endblock %}

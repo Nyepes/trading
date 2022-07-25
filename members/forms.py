@@ -23,17 +23,13 @@ class RegisterUserForm(UserCreationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
         self.fields['password1'].widget.attrs['placeholder'] = 'Password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Repeat Password'
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     user.email = self.cleaned_data['email']
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     if commit:
-    #        user.save()
-    #     return User
+
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('initial_equity',)
+        widgets = {
+           "initial_equity": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Initial Equity'})
+        }

@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from events.models import Trade
 from .forms import TradeForm
-import decimal
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-
 def home(request):
+    print(request.user.profile.win_p[0])
     return render(request,'events/home.html',{})
 
 def add_trade(request):
@@ -14,7 +13,10 @@ def add_trade(request):
     if request.method == 'POST':
         form = TradeForm(request.POST)
         if form.is_valid():
-            form.save()
+            trade = form.save(commit=False)
+            trade.page_user = request.user.profile
+            trade.equity_at_time = request.user.profile.total_equity
+            trade.save()
             return redirect ('trade_log')
     else:
         form = TradeForm(request.POST)
@@ -31,12 +33,11 @@ def edit_trade(request, trade_id):
             return redirect ('trade_log')
     return render(request, 'events/update_trade.html', {'form':form,'trade':trade})
 def trade_log(request):
-    trades = Trade.objects.all().order_by('-date')
-    p = Paginator(Trade.objects.all().order_by('-date'), 25)
+    p = Paginator(Trade.objects.filter(page_user__exact=request.user.profile).order_by('-date'), 25)
     page = request.GET.get('page')
     trades_p = p.get_page(page)
 
-    return render(request, 'events/trade_log.html', {'all_trades':trades, 'pagin':trades_p})
+    return render(request, 'events/trade_log.html', {'pagin':trades_p})
 
 def trade(request,trade_id):
     trade = Trade.objects.get(pk=trade_id)
@@ -52,11 +53,12 @@ def search_trade(request):
     if request.method == 'POST':
         searched = request.POST['searched']
         strat = request.POST['strategy']
+        trades = Trade.objects.filter(page_user=request.user.profile)
         if strat != 'Strategy':
             print(strat)
-            trades = Trade.objects.filter(ticker__contains=searched).filter(trade_type__contains=strat)
+            trades = trades.filter(ticker__contains=searched).filter(trade_type__contains=strat)
         else:
-            trades = Trade.objects.filter(ticker__contains=searched)
+            trades = trades.filter(ticker__contains=searched)
         pagin = Paginator(trades, 25)
         page = request.GET.get('page')
         trades_p = pagin.get_page(page)
