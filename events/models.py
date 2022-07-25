@@ -35,6 +35,8 @@ class Profile(models.Model):
             else:
                 l+=1
         total_amount=trades.count()
+        if total_amount ==0:
+            return (0,0,0)
         return (round(w/total_amount*100,2),round(n/total_amount*100,2),round(l/total_amount*100,2))
     @property 
     def risk_reward_ratio(self):
