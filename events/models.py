@@ -43,6 +43,9 @@ class Profile(models.Model):
         for trade in trades:
             if trade.wl=='Win':
                 sum += trade.risk_reward
+        a =trades.count()
+        if a == 0:
+            return 0
         return round(sum/trades.count(),2)
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
