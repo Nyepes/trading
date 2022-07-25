@@ -3,10 +3,10 @@ from events.models import Trade
 from .forms import TradeForm
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request,'events/home.html',{})
-
+@login_required
 def add_trade(request):
     submitted = False
     if request.method == 'POST':
@@ -22,6 +22,7 @@ def add_trade(request):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'events/add_trade.html', {'form':form})
+@login_required
 def edit_trade(request, trade_id):
     trade = Trade.objects.get(pk=trade_id)
     form = TradeForm(request.POST or None, instance=trade)
@@ -31,23 +32,24 @@ def edit_trade(request, trade_id):
             form.save()
             return redirect ('trade_log')
     return render(request, 'events/update_trade.html', {'form':form,'trade':trade})
+@login_required
 def trade_log(request):
     p = Paginator(Trade.objects.filter(page_user__exact=request.user.profile).order_by('-date'), 25)
     page = request.GET.get('page')
     trades_p = p.get_page(page)
 
     return render(request, 'events/trade_log.html', {'pagin':trades_p})
-
+@login_required
 def trade(request,trade_id):
     trade = Trade.objects.get(pk=trade_id)
     return render(request,'events/detailed_trade.html', {'trade':trade})
-
+@login_required
 def delete_trade(request, trade_id):
     trade = Trade.objects.get(pk=trade_id)
     trade.delete()
     messages.success(request,('Trade Deleted'))
     return redirect('trade_log')
-
+@login_required
 def search_trade(request):
     if request.method == 'POST':
         searched = request.POST['searched']

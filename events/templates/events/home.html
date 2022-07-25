@@ -29,5 +29,21 @@
         </table>
     </center>
   </div>
+{%else%}
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
+    <center>
+    <br/><br/>
+    <h1>Sign in or Create Account to Continue</h1>
+    <br/><br/><br/><br/>
+        Get Access to Financial Database
+    <br/><br/><br/><br/><br/>
+   
+        <a href="{%url 'login'%}" class="btn btn-primary me-2" style="width: 6rem;">Login</a>
+        <a href="{%url 'register_user'%}" class="btn btn-success me-2" style="width: 6rem;">Register</a>
+    </center>
+
+
+
+</div>
 {%endif%}
 {% endblock %}
