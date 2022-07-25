@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 
 def home(request):
-    print(request.user.profile.win_p[0])
     return render(request,'events/home.html',{})
 
 def add_trade(request):
