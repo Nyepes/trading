@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     initial_equity = models.DecimalField("Initial Equity", blank=True,null=True,max_digits=10,decimal_places=2,default=decimal.Decimal(0.00))
 
     @property
