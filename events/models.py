@@ -99,6 +99,7 @@ class Trade(models.Model):
             return (self.exit_price-self.entry_price)*self.num_shares - self.locate_fees - self.commission
         elif self.trade_type == 'Short Into Resistance':
             return -1*(self.exit_price-self.entry_price)*self.num_shares - self.locate_fees - self.commission
+        return 0
     @property
     def wl(self):
         if self.profit < 0:
