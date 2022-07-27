@@ -37,7 +37,7 @@ class TradeForm(ModelForm):
         }
         widgets = {
             "date": forms.DateInput(attrs={'class':'form-control','required': 'True','type':'date'}),
-            "time": forms.TimeInput(attrs={'class':'form-control','required': 'True','type':'time','min':'08:00', 'max':'03:00'}),
+            "time": forms.TimeInput(attrs={'class':'form-control','required': 'True','type':'time'}),
             "ticker": forms.TextInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Ticker'}),
             "entry_price": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Entry Price'}),
             "stop_loss": forms.NumberInput(attrs={'class':'form-control','required': 'True', 'placeholder':'Stop Loss'}),
