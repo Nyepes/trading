@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'trading.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'trading',
-        'USER': 'project_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'NAME': 'd8tv9amq4q0hbc',
+        'USER': 'ucejtrxvxnrrak',
+        'PASSWORD': '8bf0ab8a9e53b87bd383a647f914942c0ff11d061bcd35e6d65eda3f5037c6b6',
+        'HOST': 'ec2-54-227-248-71.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
