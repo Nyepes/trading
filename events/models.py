@@ -59,16 +59,6 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class TradeManager(models.Manager):
-    def query_wins(self):
-        profit = 0
-        if self.model.trade_type == 'Channel Trading':
-            profit= (self.model.exit_price-self.model.entry_price)*self.model.num_shares - self.model.locate_fees - self.model.commission
-        elif self.model.trade_type == 'Short Into Resistance':
-            profit= -1*(self.model.exit_price-self.model.entry_price)*self.model.num_shares - self.model.locate_fees - self.model.commission
-        print(profit)
-        return self.annotate(profit=profit).filter(profit__gt=0)
-
 class Trade(models.Model):
     page_user=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     equity_at_time = models.DecimalField("Equity at Time",decimal_places=2, max_digits=10, null = True, blank=True)
@@ -77,22 +67,15 @@ class Trade(models.Model):
     ticker=models.CharField("Ticker", max_length=10, null = True, blank=True)
     entry_price=models.DecimalField("Entry Price",decimal_places=2, max_digits=10, null = True, blank=True)
     stop_loss=models.DecimalField("Stop Loss",decimal_places=2, max_digits=10, null = True, blank=True)
-    locate_fees=models.DecimalField("Locate Fees",decimal_places=2, max_digits=10, null=True,blank=True)
+    locate_fees=models.DecimalField("Locate Fees",decimal_places=2, max_digits=10, null=True,blank=True, default=0)
     exit_price=models.DecimalField("Exit Price",decimal_places=2, max_digits=10, null = True, blank=True)
-    commission = models.DecimalField("Commission", decimal_places=2, max_digits=10, null = True, blank=True)
+    commission = models.DecimalField("Commission", decimal_places=2, max_digits=10, null = True, blank=True, default=0)
     trade_type = models.CharField("Trade Type",max_length=30, null = True, blank=True)
     screenshot = models.ImageField("Screenshot", null=True,blank=True)
     comments=models.TextField("Comments", blank=True, null = True)
-    objects = TradeManager()
-    @property
-    def num_shares(self):
-        if self.entry_price-self.stop_loss !=  0:
-            return math.floor((float(self.equity_at_time)*0.015)/abs((float(self.entry_price)-float(self.stop_loss))))
-        else: 
-            return 0
-    @property
-    def take_profit(self):
-        return round((abs((float(self.entry_price)-float(self.stop_loss))*2+float(self.entry_price))),2)
+    num_shares = models.PositiveIntegerField ("Number of Shares", max_length=10, default=0,null = True, blank=True)
+    take_profit = models.DecimalField("Commission", decimal_places=2, max_digits=10,default=0,null = True, blank=True)
+
     @property
     def profit(self):
         if self.trade_type == 'Channel Trading':
